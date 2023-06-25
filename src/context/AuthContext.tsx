@@ -20,11 +20,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         return false;
       }
     } catch (error) {
-      if (Array.isArray(error.response.data)) {
+/*       if (Array.isArray(error.response.data)) {
         setErrors(error.response.data);
         return false;
       }
-      setErrors([error.response.data.message]);
+      setErrors([error.response.data.message]); */
+      setErrors(['Hay errores en el formulario'])
       return false;
     }
   };
@@ -37,10 +38,11 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     } catch (error) {
       setUser(null);
       setIsAuthenticated(false);
-      if (Array.isArray(error.response.data)) {
+      /* if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
       }
-      setErrors([error.response.data.message]);
+      setErrors([error.response.data.message]); */
+      setErrors(['Hay errores en el formulario'])
     }
   };
 
