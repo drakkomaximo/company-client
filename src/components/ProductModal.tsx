@@ -29,16 +29,18 @@ export const ProductModal: FC<ProductModalProps> = ({ product }) => {
                 {/*body*/}
                 <div className="relative flex justify-center items-center p-6">
                   <div className="w-1/2">
-                    <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                      Image: {product.image}
-                    </p>
+                    <img
+                      className="h-auto w-28 max-w-full"
+                      src={product.image.secure_url}
+                      alt="image description"
+                    />
                   </div>
                   <div className="w-1/2">
                     <p className="my-4 text-slate-500 text-lg leading-relaxed">
                       Price: ${formatNumber({ value: product.price })}
                     </p>
                     <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                      Quantity: {formatNumber({value: product.quantity})}
+                      Quantity: {formatNumber({ value: product.quantity })}
                     </p>
                     <p className="my-4 text-slate-500 text-lg leading-relaxed">
                       Description: {product.description}

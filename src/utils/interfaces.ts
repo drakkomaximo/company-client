@@ -1,21 +1,21 @@
 export interface OptionBoxProps {
-  label: string
+  label: string;
 }
 
 export interface CompanyCardProps {
-  company: Company
+  company: Company;
 }
 
 export interface ProductCardProps {
-  product: Product
+  product: Product;
 }
 
 export interface ProductModalProps {
-  product: Product
+  product: Product;
 }
 
 export interface DocuPdfProps {
-  product: Product
+  product: Product;
 }
 
 export interface User {
@@ -59,9 +59,18 @@ export interface Product {
   quantity: number;
   price: number;
   description: string;
-  image: string;
+  image: any | Image;
   id: string;
 }
+
+export type ProductType =
+  | "companyId"
+  | "name"
+  | "quantity"
+  | "price"
+  | "description"
+  | "image"
+  | "id";
 
 export interface ProductApiResponse {
   address: string;
@@ -70,10 +79,15 @@ export interface ProductApiResponse {
   quantity: number;
   price: number;
   description: string;
-  image: string;
+  image: Image;
   updatedAt: string;
   _id: string;
   companyId: string;
+}
+
+export interface Image {
+  public_id: string;
+  secure_url: string;
 }
 
 export interface ContextAuth {
@@ -82,7 +96,7 @@ export interface ContextAuth {
   isAuthenticated: boolean;
   isLoading: boolean;
   signup: ({ user }: { user: User }) => Promise<boolean>;
-  signin: ({ user }: { user: Omit<User, 'username'> }) => void;
+  signin: ({ user }: { user: Omit<User, "username"> }) => void;
   logOut: () => void;
 }
 
@@ -104,7 +118,13 @@ export interface ContextProduct {
   clearProducts: () => void;
   getProducts: ({ companyId }: { companyId: string }) => void;
   getProductById: ({ id }: { id: string }) => Promise<Product | null>;
-  createProduct: ({ companyId, product }: { companyId: string, product: Product }) => void;
+  createProduct: ({
+    companyId,
+    product,
+  }: {
+    companyId: string;
+    product: Product;
+  }) => void;
   deleteProduct: ({ id }: { id: string }) => void;
   updateProduct: ({ product }: { product: Product }) => void;
 }

@@ -1,10 +1,9 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Product, ROUTES } from "../utils";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { useCompany } from "../hooks/useCompany";
-
 
 const ProductFormPage = () => {
   const navigate = useNavigate();
@@ -14,6 +13,7 @@ const ProductFormPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<Product>();
   const {
     errors: productFormErrors,
@@ -21,13 +21,13 @@ const ProductFormPage = () => {
     getProductById,
     updateProduct,
   } = useProduct();
-  const {companyId} = useCompany()
+  const { companyId } = useCompany();
 
   const onSubmit = handleSubmit(async (product) => {
     if (params.id) {
       updateProduct({ product });
     } else {
-      if(companyId){
+      if (companyId) {
         createProduct({ companyId, product });
       }
     }
@@ -44,7 +44,7 @@ const ProductFormPage = () => {
           setValue("price", product.price);
           setValue("quantity", product.quantity);
           setValue("description", product.description);
-          setValue("image", product.image);
+          /*           setValue("image", product.image); */
           setValue("companyId", product.companyId);
         }
       }
@@ -105,12 +105,30 @@ const ProductFormPage = () => {
           {errors.description && (
             <p className="text-red-500">Product description is required</p>
           )}
-          <input
-            type="text"
-            {...register("image", { required: true })}
-            placeholder="Product image"
-            className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-          />
+
+          {!params.id && (
+            <Controller
+              control={control}
+              name={"image"}
+              render={({ field: { value, onChange, ...field } }) => {
+                return (
+                  <input
+                    {...field}
+                    value={value?.fileName}
+                    onChange={(event) => {
+                      if (event.target.files[0]) {
+                        onChange(event.target.files[0]);
+                      }
+                    }}
+                    type="file"
+                    id="picture"
+                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                  />
+                );
+              }}
+            />
+          )}
+
           {errors.image && (
             <p className="text-red-500">Product image is required</p>
           )}
@@ -118,7 +136,10 @@ const ProductFormPage = () => {
             <button type="submit" className="bg-amber-800 p-2 rounded-sm">
               {params.id ? "Edit" : "Create"}
             </button>
-            <Link to={`${ROUTES.COMPANY}/${companyId}`} className="bg-red-800 p-2 rounded-sm">
+            <Link
+              to={`${ROUTES.COMPANY}/${companyId}`}
+              className="bg-red-800 p-2 rounded-sm"
+            >
               Cancel
             </Link>
           </div>

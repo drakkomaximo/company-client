@@ -27,14 +27,14 @@ const CompanyPage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-full border-solid border-indigo-900 border-2">
-        <h1>{company.name}</h1>
-        <h1>{company.address}</h1>
-        <h1>{company.nit}</h1>
-        <h1>{company.phone}</h1>
+      <div className="w-full">
+        <h1 className="uppercase text-2xl font-bold text-center text-white">Company name: {company.name}</h1>
+        <h1 className="uppercase text-2xl font-bold text-center text-white">Company address: {company.address}</h1>
+        <h1 className="uppercase text-2xl font-bold text-center text-white">Company NIT: {company.nit}</h1>
+        <h1 className="uppercase text-2xl font-bold text-center text-white">Compnay phone: {company.phone}</h1>
       </div>
-      <div className="w-full border-solid border-indigo-900 border-2">
-        <h1>Products list</h1>
+      <div className="w-full">
+        <h1 className="uppercase text-center text-7xl font-bold my-3">Products list</h1>
         <ProductsList />
       </div>
     </div>

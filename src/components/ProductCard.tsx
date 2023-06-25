@@ -13,11 +13,13 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
           <h1 className="text-2xl font-bold text-white capitalize">
             {product.name}
           </h1>
-          <p>{product.image}</p>
+
+          <img
+            className="h-28 w-28 max-w-full object-cover"
+            src={product.image.secure_url}
+            alt="image description"
+          />
         </header>
-{/*         <p className="text-white">Quantity: {product.quantity}</p>
-        <p className="text-white">Price: ${product.price}</p>
-        <p className="text-white">{product.description}</p> */}
       </div>
       <div className="flex gap-x-2 items-center justify-evenly w-full mt-2">
         <ProductModal product={product} />

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { DocuPdfProps, formatNumber } from "../utils";
-import { Document, Page, View, Text } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image } from "@react-pdf/renderer";
 
 export const DocuPdf: FC<DocuPdfProps> = ({ product }) => {
   return (
@@ -74,7 +74,7 @@ export const DocuPdf: FC<DocuPdfProps> = ({ product }) => {
                 color: "black",
                 textAlign: "center",
                 textTransform: "capitalize",
-                padding: 10
+                padding: 10,
               }}
             >
               {product.name}
@@ -88,22 +88,19 @@ export const DocuPdf: FC<DocuPdfProps> = ({ product }) => {
               alignItems: "center",
               padding: "6px",
               width: "100%",
-              border: "1px solid black",
             }}
           >
-            <View style={{ width: "45%", border: "1px solid red" }}>
-              <Text
+            <View style={{ width: "45%" }}>
+              <Image
                 style={{
-                  marginTop: "16px",
-                  marginBottom: "16px",
-                  color: "black",
-                  fontSize: "18px",
+                  height: "auto",
+                  width: "100%",
+                  maxWidth: "100%,",
                 }}
-              >
-                Image: {product.image}
-              </Text>
+                src={product.image.secure_url}
+              />
             </View>
-            <View style={{ width: "45%", border: "1px solid blue" }}>
+            <View style={{ width: "45%" }}>
               <Text
                 style={{
                   marginTop: "16px",
@@ -112,7 +109,7 @@ export const DocuPdf: FC<DocuPdfProps> = ({ product }) => {
                   fontSize: "18px",
                 }}
               >
-                Price: ${formatNumber({value: product.price})}
+                Price: ${formatNumber({ value: product.price })}
               </Text>
               <Text
                 style={{
@@ -122,7 +119,7 @@ export const DocuPdf: FC<DocuPdfProps> = ({ product }) => {
                   fontSize: "18px",
                 }}
               >
-                Quantity: {formatNumber({value: product.quantity})}
+                Quantity: {formatNumber({ value: product.quantity })}
               </Text>
               <Text
                 style={{

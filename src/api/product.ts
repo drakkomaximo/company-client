@@ -1,4 +1,4 @@
-import { Product, ProductApiResponse, ROUTES } from "../utils";
+import { Product, ProductApiResponse, ProductType, ROUTES } from "../utils";
 import axiosIntance from "./axios";
 
 export const getProductsRequest = async ({ companyId }: { companyId: string }) => {
@@ -36,7 +36,17 @@ export const createProductRequest = async ({
     ...product,
     companyId,
   };
-  axiosIntance.post(ROUTES.PRODUCT, newProduct);
+  const form = new FormData()
+
+  for(const key in newProduct){
+    form.append(key, newProduct[key])
+  }
+
+  return await axiosIntance.post(ROUTES.PRODUCT, form, {
+    headers:{
+      "Content-type": "multipart/form-data"
+    }
+  });
 };
 
 export const updateProductRequest = async ({ product }: { product: Product }) =>
