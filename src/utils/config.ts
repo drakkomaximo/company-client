@@ -1,0 +1,1 @@
+export const API_URL = "https://crud-auth-v2--drakkomaximo.repl.co/api";
